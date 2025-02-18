@@ -8,7 +8,7 @@ We want to create an accessible, community-driven website that helps people disc
 
 ## User stories
 
-See instructions. Delete this line and place a link to the user stories here.
+[Issues Page](https://github.com/software-students-spring2025/2-web-app-httpeople/issues)
 
 ## Steps necessary to run the software
 
