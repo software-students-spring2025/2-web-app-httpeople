@@ -12,7 +12,10 @@ We want to create an accessible, community-driven website that helps people disc
 
 ## Steps necessary to run the software
 
-See instructions. Delete this line and place instructions to download, configure, and run the software here.
+* Ensure you have a working local MongoDB server
+* Setup Virtual Environment
+* Run: pip install -r requirements.txt
+* Run: Server.py
 
 ## Task boards
 
