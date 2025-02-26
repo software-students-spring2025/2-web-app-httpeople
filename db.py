@@ -16,14 +16,12 @@ db = connection["httpeople"]
 
 """
 user = {
-    id: UUID,
     username: String,
     email: String,
     password: String
 }
 
 recipes = {
-    id: UUID,
     name: String,
     description: String,
     steps: List<String>,
