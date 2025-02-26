@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from db import db
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
@@ -17,4 +18,16 @@ def search():
         recipes = db.recipes.find({})
         
     return render_template("search.html", recipes=recipes)
+
+@app.route("/recipe/<id>")
+def recipe(id):
+    single_recipe = db.recipes.find_one({"_id": ObjectId(id)})
+    return render_template("recipe.html", single_recipe=single_recipe)
+
+@app.route("/home")
+def home():
+    recipes = db.recipes.find({})
+    return render_template("home.html", recipes=recipes)
+
+
 app.run(debug=True)
