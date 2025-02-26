@@ -4,12 +4,19 @@
 
     </head>
     <body>
-        <h3>Searching Test</h3>
+        <h3>Searching Page</h3>
+        <form method="POST" action="#">
+            <input type="text" name="recipe_name" /> 
+            <input type="submit" />
+        </form>
+
         <ul>
         {% for item in recipes %}
         <li>
             <p>{{ item.name }}</p>
             <p>{{item.description}}</p>
+            <p>{{item.steps}}</p>
+            <p>{{item.ingredients}}</p>
         </li>
         {% endfor %}
         </ul>
