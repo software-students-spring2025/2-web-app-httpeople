@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h3>Searching Test</h3>
+        <ul>
+        {% for item in recipes %}
+        <li>
+            <p>{{ item.name }}</p>
+            <p>{{item.description}}</p>
+        </li>
+        {% endfor %}
+        </ul>
+    </body>
+</html>
