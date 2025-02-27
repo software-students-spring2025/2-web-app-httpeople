@@ -32,10 +32,9 @@ def edit(id):
     steps = request.form.get("recipe_steps")
     ingredients = request.form.get("recipe_ingredients")
     single_recipe = db.recipes.find_one({"_id": ObjectId(id)})
-    single_recipe.name = name
-    single_recipe.description = description
-    single_recipe.steps = steps
-    single_recipe.ingredients = ingredients
+    recipes = db.httpeople
+    new_values = {"$set": {'name': name, 'description': description, 'steps': steps, 'ingredients': ingredients}}
+    recipes.update_one(single_recipe, new_values)
     # render template for recipe html editing
 
 @app.route("/login", methods=['GET', 'POST'])
