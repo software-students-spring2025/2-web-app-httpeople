@@ -19,4 +19,4 @@ We want to create an accessible, community-driven website that helps people disc
 
 ## Task boards
 
-See instructions. Delete this line and place a link to the task boards here.
+[Sprint 1 Project Link](https://github.com/orgs/software-students-spring2025/projects/9/views/2)
