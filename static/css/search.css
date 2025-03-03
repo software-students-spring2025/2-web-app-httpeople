@@ -9,7 +9,7 @@ html, body {
     align-items: center;
     min-height: 100vh;
 }
-.home-container {
+.search-container {
     background-color: white;
     padding: 40px;
     border-radius: 8px;
@@ -64,4 +64,13 @@ a{
     display: flex;
     justify-content: center;
     gap: 16px;
+}
+
+
+input[type="text"]{
+    height: 25px;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
 }

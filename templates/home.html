@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home Page</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
     </head>
     <body>
-        <h3>Home Page</h3>
-        <a href="search">Search</a>
-        <ul>
-        {% for item in recipes %}
-        <li>
-            <a href="{{ url_for('recipe', id=item._id)}}">{{ item.name }}</a>
-            <p>{{item.description}}</p>
-        </li>
-        {% endfor %}
-        </ul>
+        
+
+        <div class="home-container">
+            <div class="app-title">
+                <h1>Home Page</h1>
+            </div>
+            
+            <div class="recipe-list">
+                <h2>Trending Recipes</h2>
+                {% for item in recipes %}
+                <div class="recipe-item">
+                    <h3><a href="{{ url_for('recipe', id=item._id)}}">{{ item.name }}</a></h3>
+                    <p>{{item.description}}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="bottom-buttons">
+                <button><a href="search">Search</a></button>
+                <button><a href="profilepage">Profile</a></button>
+            </div>
+        </div>
     </body>
 </html>

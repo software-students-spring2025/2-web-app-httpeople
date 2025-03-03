@@ -9,7 +9,7 @@ html, body {
     align-items: center;
     min-height: 100vh;
 }
-.search-container {
+.recipe-container {
     background-color: white;
     padding: 40px;
     border-radius: 8px;
@@ -20,18 +20,11 @@ html, body {
     flex-direction: column;
     align-items: center;
 }
-.recipe-list {
-    width: 100%;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 20px;
+
+.back-button{
+    align-self: flex-start;
 }
 
-.recipe-item {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-}
 button {
     height: 44px;
     width: 88px;
@@ -56,21 +49,11 @@ a{
     color: black;
     text-decoration: none;
 }
-.bottom-buttons {
+.recipe-field {
     width: 100%;
+    background-color: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
     margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 16px;
 }
 
-
-input[type="text"]{
-    height: 25px;
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-}

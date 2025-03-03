@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search Page</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
     </head>
     <body>
-        <h3>Searching Page</h3>
-        <a href="home">Home</a>
-        <form method="POST" action="#">
-            <input type="text" name="recipe_name" /> 
-            <input type="submit" />
-        </form>
+        <div class="search-container">
+            <h1>Search</h1>
+            <form method="POST" action="#">
+                <input type="text" name="recipe_name" />
+                <button type="submit">Search</button>
+            </form>
 
-        <ul>
-        {% for item in recipes %}
-        <li>
-            <a href="{{ url_for('recipe', id=item._id)}}">{{ item.name }}</a>
-            <p>{{item.description}}</p>
-        </li>
-        {% endfor %}
-        </ul>
+            <div class="recipe-list">
+                {% for item in recipes %}
+                <div class="recipe-item">
+                    <h3><a href="{{ url_for('recipe', id=item._id)}}">{{ item.name }}</a></h3>
+                    <p>{{item.description}}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="bottom-buttons">
+                <button><a href="home">Home</a></button>
+                <button><a href="profilepage">Profile</a></button>
+            </div>
+        </div>
+
     </body>
 </html>
