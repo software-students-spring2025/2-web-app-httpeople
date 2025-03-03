@@ -10,7 +10,7 @@ load_dotenv()
 # HOST_NAME = os.environ.get("HOST_NAME")
 # PORT = os.environ.get("PORT", 27017)
 
-connection = pymongo.MongoClient("mongodb://localhost:27017")
+connection = pymongo.MongoClient("mongodb://localhost:27017/")
 
 db = connection["httpeople"]
 
