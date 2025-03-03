@@ -19,20 +19,13 @@ def search():
 def save(item_id):
     if not session.get("user_id"):
         return redirect(f"/recipe/{item_id}")
-    single_recipe = db.recipes.find_one({"_id": ObjectId(item_id)})
-
-    # Create saved_by if not exist
-    if not single_recipe.get("saved_by"):
-        single_recipe["saved_by"] = []
-
-    if ObjectId(session.get("user_id")) not in single_recipe["saved_by"]:
-        single_recipe["saved_by"].append(ObjectId(session.get("user_id")))
-        db.recipes.update_one( {
-            { "_id": ObjectId(item_id) }, # match criteria
-            {
-                "$set":{
-                    "saved_by": single_recipe["saved_by"],
-                }
+    user = db.users.find_one({"_id": ObjectId(session.get("user_id"))})
+    user["saved_recipes"].append(ObjectId(item_id))
+    db.users.update_one( 
+        { "_id": user["_id"] }, # match criteria
+        {
+            "$set": {
+                "saved_recipes": list(user["saved_recipes"]),
             }
         })
     return redirect(f"/recipe/{item_id}")
@@ -87,12 +80,17 @@ def sign_up():
         username = request.form.get("username")
         email = request.form.get("email")
         password = request.form.get("password")
-        user = {"username": username, "email": email , "password": password}
+        user = {"username": username, "email": email , "password": password, "saved_recipes": []}
         user = db.users.insert_one(user)
         session["user_id"] = str(user.inserted_id)
         return redirect("/home")
     # return profile page
     return render_template("signup.html")
+
+@app.route("/delete/<id>", methods=["GET"])
+def delete(id):
+    db.recipes.delete_one({"_id": ObjectId(id)})
+    return redirect("/home")
 
 @app.route("/profilepage")
 def profile():
