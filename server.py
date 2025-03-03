@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 from db import db
 from bson.objectid import ObjectId
+import datetime
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
@@ -55,9 +56,32 @@ def edit(id):
         recipes = db.recipes
         new_values = {"$set": {'name': name, 'description': description, 'steps': steps, 'ingredients': ingredients}}
         recipes.update_one(single_recipe, new_values)
-        return redirect(f"/recipe/{str(single_recipe["_id"])}")
+        return redirect(f"/recipe/{str(single_recipe[id])}")
     # render template for recipe html editing
     return render_template("recipeedit.html", id=id)
+
+@app.route("/addrecipe", methods=['GET', 'POST'])
+def add():
+    if request.method == "POST":
+        name = request.form.get("name")
+        description = request.form.get("description")
+        steps = request.form.get("steps").split("\r\n")
+        ingredients = request.form.get("ingredients").split("\r\n")
+        user = db.users.find_one({"_id": ObjectId(session.get("user_id"))})
+        created_by = user
+        created_at = datetime.datetime
+        added_recipe = {
+            'name': name,
+            'description': description,
+            'steps': steps,
+            'ingredients': ingredients,
+            'created_by': created_by,
+            'created_at': created_at
+        }
+        inserted_recipe_id = db.recipes.insert_one(added_recipe).inserted_id
+        return redirect(f"/recipe/{str(inserted_recipe_id)}")
+    return render_template("addrecipe.html")
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -94,8 +118,8 @@ def delete(id):
 
 @app.route("/profilepage")
 def profile():
-
+    user = db.users.find_one({"_id": ObjectId(session.get("user_id"))})
     # would return user page html template here
-    return render_template("profilepage.html")
+    return render_template("profilepage.html", user=user)
 
 app.run(debug=True)
