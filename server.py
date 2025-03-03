@@ -36,11 +36,13 @@ def edit(id):
     new_values = {"$set": {'name': name, 'description': description, 'steps': steps, 'ingredients': ingredients}}
     recipes.update_one(single_recipe, new_values)
     # render template for recipe html editing
+    return render_template("recipe.html")
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     email = request.form.get("email")
     password = request.form.get("password")
+    render_template("login.html")
     if db.recipes.find_one({"email": email, "password": password}) is not None:
         # direct to profile screen
         pass
@@ -57,9 +59,10 @@ def sign_up():
     db.insert_one(user)
     # return profile page
 
-@app.route("/profile")
-def profile(username):
-    user_profile = db.user.find_one({"username": username})
+@app.route("/profilepage")
+def profile():
+
     # would return user page html template here
+    return render_template("profilepage.html")
 
 app.run(debug=True)
