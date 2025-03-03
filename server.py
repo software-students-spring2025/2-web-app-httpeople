@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from db import db
 from bson.objectid import ObjectId
 
@@ -24,6 +24,10 @@ def home():
     recipes = db.recipes.find({})
     return render_template("home.html", recipes=recipes)
 
+@app.route("/")
+def root():
+    return redirect("/home")
+
 
 @app.route("/recipe/<id>/edit", methods=['GET', 'POST'])
 def edit(id):
@@ -40,24 +44,28 @@ def edit(id):
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
-    email = request.form.get("email")
-    password = request.form.get("password")
-    render_template("login.html")
-    if db.recipes.find_one({"email": email, "password": password}) is not None:
-        # direct to profile screen
-        pass
-    else:
-        # return login error
-        pass
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+        if db.recipes.find_one({"email": email, "password": password}) is not None:
+            # direct to profile screen
+            pass
+        else:
+            # return login error
+            pass
+    return render_template("login.html")
 
 @app.route("/signup", methods=['GET', 'POST'])
 def sign_up():
-    username = request.form.get("username")
-    email = request.form.get("email")
-    password = request.form.get("password")
-    user = {"username": username, email: "email", password: "password"}
-    db.insert_one(user)
+    if request.method == "POST":
+        username = request.form.get("username")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        user = {"username": username, "email": email , "password": password}
+        db.users.insert_one(user)
+        return redirect("/home")
     # return profile page
+    return render_template("signup.html")
 
 @app.route("/profilepage")
 def profile():
