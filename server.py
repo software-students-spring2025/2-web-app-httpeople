@@ -34,7 +34,7 @@ def save(item_id):
 @app.route("/recipe/<id>")
 def recipe(id):
     single_recipe = db.recipes.find_one({"_id": ObjectId(id)})
-    return render_template("recipe.html", single_recipe=single_recipe)
+    return render_template("recipe.html", single_recipe=single_recipe, user_id=session.get("user_id"))
 
 @app.route("/home")
 def home():
@@ -120,7 +120,13 @@ def profile():
     if not session.get("user_id"):
         return redirect("/home")
     user = db.users.find_one({"_id": ObjectId(session.get("user_id"))})
+    recipes = db.recipes.find({"_id": {"$in": user["saved_recipes"]}})
     # would return user page html template here
-    return render_template("profilepage.html", user=user)
+    return render_template("profilepage.html", user=user, recipes=recipes)
+
+@app.route("/logout")
+def logout():
+    session["user_id"] = None
+    return render_template("/home")
 
 app.run(debug=True)
