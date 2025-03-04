@@ -93,9 +93,6 @@ def login():
             session['user_id'] = str(user["_id"])
             print(session['user_id'])
             return redirect("/home")
-        else:
-            # return login error
-            pass
     return render_template("login.html")
 
 @app.route("/signup", methods=['GET', 'POST'])
