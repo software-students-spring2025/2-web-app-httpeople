@@ -65,3 +65,14 @@ a{
     justify-content: center;
     gap: 16px;
 }
+.long-button{
+    height: 44px;
+    width: 132px;
+    padding: 10px;
+    background-color: #006400;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
