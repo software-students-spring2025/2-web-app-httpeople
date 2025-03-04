@@ -44,7 +44,7 @@
                 <form action="{{ url_for('save', item_id=single_recipe._id) }}" method="get">
                     <button type="submit">Save</button>
                 </form>
-                {% if user_id == single_recipe.created_by %}
+                {% if user_id == single_recipe.created_by._id %}
                 <form action="{{ url_for('edit', id=single_recipe._id) }}" method="get">
                     <button type="submit">Edit</button>
                 </form>
