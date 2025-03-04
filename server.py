@@ -63,6 +63,8 @@ def edit(id):
 @app.route("/addrecipe", methods=['GET', 'POST'])
 def add():
     if request.method == "POST":
+        if not session.get("user_id"):
+            return redirect("/home")
         name = request.form.get("name")
         description = request.form.get("description")
         steps = request.form.get("steps").split("\r\n")
@@ -115,6 +117,8 @@ def delete(id):
 
 @app.route("/profilepage")
 def profile():
+    if not session.get("user_id"):
+        return redirect("/home")
     user = db.users.find_one({"_id": ObjectId(session.get("user_id"))})
     # would return user page html template here
     return render_template("profilepage.html", user=user)
