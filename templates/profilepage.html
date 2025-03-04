@@ -20,8 +20,8 @@
 
         <div class="recipe-list">
             <h2>Saved Recipes</h2>
-		{% for recipe in user.saved_recipes %}
-                <p>{{recipe}}</p>
+		{% for recipe in recipes %}
+                <p>{{recipe.name}}</p>
                 {% endfor %}
         </div>
     </div>
