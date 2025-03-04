@@ -22,11 +22,19 @@
                     <p>{{item.description}}</p>
                 </div>
                 {% endfor %}
+                <button class="long-button"><a href="addrecipe">Create Recipe</a></button>
             </div>
+            
             <div class="bottom-buttons">
                 <button><a href="search">Search</a></button>
                 <button><a href="profilepage">Profile</a></button>
+                {% if user_id == none %}
                 <button><a href="login">Login</a></button>
+                {% else %}
+                <form action="{{ url_for('logout')}}" method="get">
+                    <button type="submit">Log out</button>
+                </form>
+                {% endif %}
             </div>
         </div>
     </body>
