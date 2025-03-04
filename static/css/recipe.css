@@ -56,4 +56,14 @@ a{
     border-radius: 8px;
     margin-top: 20px;
 }
+.bottom-buttons {
+    width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
 

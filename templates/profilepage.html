@@ -20,9 +20,20 @@
 
         <div class="recipe-list">
             <h2>Saved Recipes</h2>
-		{% for recipe in user.saved_recipes %}
-                <p>{{recipe}}</p>
+		{% for recipe in recipes %}
+            <p><a href="{{ url_for('recipe', id=recipe._id)}}">{{ recipe.name }}</a></p>
                 {% endfor %}
+        </div>
+        <div class="bottom-buttons">
+            <button><a href="home">Home</a></button>
+
+            {% if user_id == None %}
+            <button><a href="login">Login</a></button>
+            {% else %}
+            <form action="{{ url_for('logout')}}" method="get">
+                <button type="submit">Log out</button>
+            </form>
+            {% endif %}
         </div>
     </div>
 

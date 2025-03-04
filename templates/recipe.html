@@ -11,11 +11,8 @@
             
             <div class="back-button">
                 <button><a href="/home">Home</a></button>
-                <form action="{{ url_for('save', item_id=single_recipe._id) }}" method="get">
-                    <button type="submit">Save</button>
-                </form>
-
             </div>
+
             <h2>{{ single_recipe.name }}</h2>
             <div class="recipe-field">
                 <h3>Description</h3>
@@ -40,6 +37,22 @@
                     {% endfor %}
 
                 </ol>
+
+            </div>
+
+            <div class="bottom-buttons">
+                <form action="{{ url_for('save', item_id=single_recipe._id) }}" method="get">
+                    <button type="submit">Save</button>
+                </form>
+                {% if user_id == single_recipe.created_by._id %}
+                <form action="{{ url_for('edit', id=single_recipe._id) }}" method="get">
+                    <button type="submit">Edit</button>
+                </form>
+                <form action="{{ url_for('delete', id=single_recipe._id) }}" method="get">
+                    <button type="submit">Delete</button>
+                </form>
+                {% endif %}
+
 
             </div>
         </div>
