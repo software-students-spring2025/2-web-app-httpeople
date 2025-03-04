@@ -26,10 +26,10 @@
         </div>
         <div class="bottom-buttons">
             <button><a href="home">Home</a></button>
-            {% if user_id == single_recipe.created_by %}
+            {% if user_id == None %}
             <button><a href="login">Login</a></button>
             {% else %}
-            <form action="{{ url_for('logout'}}" method="get">
+            <form action="{{ url_for('logout')}}" method="get">
                 <button type="submit">Log out</button>
             </form>
             {% endif %}

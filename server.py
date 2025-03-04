@@ -127,6 +127,6 @@ def profile():
 @app.route("/logout")
 def logout():
     session["user_id"] = None
-    return render_template("/home")
+    return redirect("/home")
 
 app.run(debug=True)
