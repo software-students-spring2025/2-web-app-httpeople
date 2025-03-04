@@ -94,7 +94,7 @@ def login():
             user = db.users.find_one({"username": username, "password": password}) 
             session['user_id'] = str(user["_id"])
             print(session['user_id'])
-            return redirect("/home")
+            return redirect("/profilepage")
     return render_template("login.html")
 
 @app.route("/signup", methods=['GET', 'POST'])
