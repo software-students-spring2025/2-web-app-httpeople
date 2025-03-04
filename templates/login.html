@@ -9,8 +9,10 @@
 <body>
 
     <div class="login-container">
+        <div class="back-button">
+            <button><a href="/home">Home</a></button>
+        </div>
         <form action="/login" method="POST">
-
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -20,9 +22,12 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            
-            <button type="submit">Login</button>
+            <div class="bottom-buttons">
+                <button type="submit">Login</button>
+                <button><a href="signup">Sign up</a></button>
+            </div>
         </form>
+
     </div>
 </body>
 </html>
