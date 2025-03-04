@@ -34,12 +34,12 @@ def save(item_id):
 @app.route("/recipe/<id>")
 def recipe(id):
     single_recipe = db.recipes.find_one({"_id": ObjectId(id)})
-    return render_template("recipe.html", single_recipe=single_recipe)
+    return render_template("recipe.html", single_recipe=single_recipe, user_id=ObjectId(session.get("user_id")))
 
 @app.route("/home")
 def home():
     recipes = db.recipes.find({})
-    return render_template("home.html", recipes=recipes)
+    return render_template("home.html", recipes=recipes, user_id=session.get("user_id"))
 
 @app.route("/")
 def root():
@@ -56,7 +56,7 @@ def edit(id):
         recipes = db.recipes
         new_values = {"$set": {'name': name, 'description': description, 'steps': steps, 'ingredients': ingredients}}
         recipes.update_one(single_recipe, new_values)
-        return redirect(f"/recipe/{str(single_recipe[id])}")
+        return redirect(f"/recipe/{str(single_recipe["_id"])}")
     # render template for recipe html editing
     return render_template("recipeedit.html", id=id)
 
@@ -71,7 +71,7 @@ def add():
         ingredients = request.form.get("ingredients").split("\r\n")
         user = db.users.find_one({"_id": ObjectId(session.get("user_id"))})
         created_by = user
-        created_at = datetime.datetime
+        created_at = datetime.datetime.now()
         added_recipe = {
             'name': name,
             'description': description,
@@ -93,8 +93,7 @@ def login():
         if db.users.find_one({"username": username, "password": password}) is not None:
             user = db.users.find_one({"username": username, "password": password}) 
             session['user_id'] = str(user["_id"])
-            print(session['user_id'])
-            return redirect("/home")
+            return redirect("/profilepage")
     return render_template("login.html")
 
 @app.route("/signup", methods=['GET', 'POST'])
@@ -120,7 +119,13 @@ def profile():
     if not session.get("user_id"):
         return redirect("/home")
     user = db.users.find_one({"_id": ObjectId(session.get("user_id"))})
+    recipes = db.recipes.find({"_id": {"$in": user["saved_recipes"]}})
     # would return user page html template here
-    return render_template("profilepage.html", user=user)
+    return render_template("profilepage.html", user=user, recipes=recipes)
+
+@app.route("/logout")
+def logout():
+    session["user_id"] = None
+    return redirect("/home")
 
 app.run(debug=True)
